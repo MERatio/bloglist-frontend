@@ -21,6 +21,19 @@ const create = async (newObject) => {
   return response.data;
 };
 
-const blogService = { getAll, create, setToken };
+const update = async (id, newProps) => {
+  const response = await axios.put(`${baseUrl}/${id}`, newProps);
+  return response.data;
+};
+
+const deleteObject = async (id) => {
+  const config = {
+    headers: { Authorization: token },
+  };
+  const response = await axios.delete(`${baseUrl}/${id}`, config);
+  return response.data;
+};
+
+const blogService = { setToken, getAll, create, update, deleteObject };
 
 export default blogService;

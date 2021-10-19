@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import blogService from './services/blogs';
 import loginService from './services/login';
 import Notification from './components/Notification';
+import Togglable from './components/Togglable';
 import Blog from './components/Blog';
 import LoginForm from './components/LoginForm';
 import LogoutBtn from './components/LogoutBtn';
@@ -13,9 +14,8 @@ const App = () => {
   const [user, setUser] = useState(null);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [title, setTitle] = useState('');
-  const [author, setAuthor] = useState('');
-  const [url, setUrl] = useState('');
+
+  const blogFormRef = useRef();
 
   const handleLoginFormSubmit = async (e) => {
     e.preventDefault();
@@ -49,16 +49,56 @@ const App = () => {
     setTimeout(() => setNotification({}), 5000);
   };
 
-  const handleBlogFormSubmit = async (e) => {
-    e.preventDefault();
+  const createBlog = async (blog) => {
     try {
-      const returnedBlog = await blogService.create({ title, author, url });
+      const returnedBlog = await blogService.create(blog);
       setBlogs(blogs.concat(returnedBlog));
-      setTitle('');
-      setAuthor('');
-      setUrl('');
       setNotification({
         message: `New blog ${returnedBlog.title} added`,
+        type: 'success',
+      });
+      blogFormRef.current.toggleVisibility();
+    } catch (error) {
+      setNotification({
+        message: error.response.data.error,
+        type: 'error',
+      });
+    }
+    setTimeout(() => setNotification({}), 5000);
+  };
+
+  const updateBlog = async (id, newBlogProps) => {
+    try {
+      const returnedBlog = await blogService.update(id, newBlogProps);
+      setBlogs(
+        blogs.map((blog) => (blog.id !== returnedBlog.id ? blog : returnedBlog))
+      );
+      setNotification({
+        message: `Blog ${returnedBlog.title} updated`,
+        type: 'success',
+      });
+    } catch (error) {
+      setNotification({
+        message: error.response.data.error,
+        type: 'error',
+      });
+    }
+    setTimeout(() => setNotification({}), 5000);
+  };
+
+  const deleteBlog = async (id) => {
+    const blogToDelete = blogs.find((blog) => blog.id === id);
+    const confirmDeletion = window.confirm(
+      `Remove blog ${blogToDelete.title} by ${blogToDelete.author}`
+    );
+    if (!confirmDeletion) {
+      return;
+    }
+    try {
+      await blogService.deleteObject(blogToDelete.id);
+      setBlogs(blogs.filter((blog) => blog.id !== blogToDelete.id));
+      setNotification({
+        message: `Blog ${blogToDelete.title} deleted`,
         type: 'success',
       });
     } catch (error) {
@@ -87,6 +127,8 @@ const App = () => {
     }
   }, []);
 
+  const blogsDescLikes = blogs.sort((a, b) => b.likes - a.likes);
+
   return (
     <div>
       <Notification notification={notification} />
@@ -107,18 +149,19 @@ const App = () => {
           <p>
             {user.name} logged in <LogoutBtn onClick={handleLogoutBtnClick} />
           </p>
-          <h2>create new</h2>
-          <BlogForm
-            title={title}
-            author={author}
-            url={url}
-            setTitle={setTitle}
-            setAuthor={setAuthor}
-            setUrl={setUrl}
-            onSubmit={handleBlogFormSubmit}
-          />
-          {blogs.map((blog) => (
-            <Blog key={blog.id} blog={blog} />
+          <Togglable buttonLabel={'create new blog'} ref={blogFormRef}>
+            <h2>create new</h2>
+            <BlogForm createBlog={createBlog} />
+          </Togglable>
+          {blogsDescLikes.map((blog) => (
+            <Blog
+              key={blog.id}
+              user={user}
+              blog={blog}
+              updateBlog={updateBlog}
+              deleteBlog={deleteBlog}
+              onDeleteBlogBtnClick={() => deleteBlog(blog.id)}
+            />
           ))}
         </>
       )}
