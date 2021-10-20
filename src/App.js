@@ -138,8 +138,8 @@ const App = () => {
           <LoginForm
             username={username}
             password={password}
-            setUsername={setUsername}
-            setPassword={setPassword}
+            onUsernameChange={setUsername}
+            onPasswordChange={setPassword}
             onSubmit={handleLoginFormSubmit}
           />
         </>
