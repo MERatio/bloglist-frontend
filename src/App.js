@@ -159,7 +159,6 @@ const App = () => {
               user={user}
               blog={blog}
               updateBlog={updateBlog}
-              deleteBlog={deleteBlog}
               onDeleteBlogBtnClick={() => deleteBlog(blog.id)}
             />
           ))}
