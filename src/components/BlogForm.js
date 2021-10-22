@@ -14,7 +14,7 @@ const BlogForm = ({ createBlog }) => {
 	};
 
 	return (
-		<form onSubmit={handleSubmit}>
+		<form id="blogForm" onSubmit={handleSubmit}>
 			<div>
 				<label htmlFor="title">title</label>
 				<input
