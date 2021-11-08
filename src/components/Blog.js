@@ -24,7 +24,7 @@ const Blog = ({ user, blog, updateBlog, onDeleteBlogBtnClick }) => {
   };
 
   return (
-    <div style={blogStyle}>
+    <div style={blogStyle} data-cy="blog">
       <div>
         {blog.title}
         <button onClick={toggleVisibility}>{visible ? 'hide' : 'view'}</button>

@@ -29,7 +29,9 @@ const LoginForm = ({
 				onChange={({ target }) => onPasswordChange(target.value)}
 			/>
 		</div>
-		<button type="submit">login</button>
+		<button type="submit" data-cy="login-button">
+			login
+		</button>
 	</form>
 );
 
