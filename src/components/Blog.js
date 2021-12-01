@@ -1,18 +1,12 @@
 import React, { useState } from 'react';
 
-const Blog = ({ user, blog, updateBlog, onDeleteBlogBtnClick }) => {
+const Blog = ({ user, blog, onLikeBtnClick, onDeleteBtnClick }) => {
   const [visible, setVisible] = useState(false);
 
   const showWhenVisible = { display: visible ? '' : 'none' };
 
   const toggleVisibility = () => {
     setVisible(!visible);
-  };
-
-  const handleLikeBtnClick = () => {
-    updateBlog(blog.id, {
-      likes: blog.likes + 1,
-    });
   };
 
   const blogStyle = {
@@ -32,13 +26,13 @@ const Blog = ({ user, blog, updateBlog, onDeleteBlogBtnClick }) => {
       <div className="togglableContent" style={showWhenVisible}>
         <div>{blog.url}</div>
         <div>
-          likes {blog.likes} <button onClick={handleLikeBtnClick}>like</button>
+          likes {blog.likes} <button onClick={onLikeBtnClick}>like</button>
         </div>
         <div>{blog.author}</div>
         {(user.id === blog.user.id || user.id === blog.user) && (
           <button
             style={{ backgroundColor: 'DodgerBlue' }}
-            onClick={onDeleteBlogBtnClick}
+            onClick={onDeleteBtnClick}
           >
             delete
           </button>

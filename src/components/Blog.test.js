@@ -5,8 +5,8 @@ import Blog from './Blog';
 
 let user;
 let blog;
-let updateBlog;
-let onDeleteBlogBtnClick;
+let onLikeBtnClick;
+let onDeleteBtnClick;
 let component;
 let togglableDiv;
 
@@ -24,16 +24,16 @@ beforeEach(() => {
     user: user,
   };
 
-  updateBlog = jest.fn();
+  onLikeBtnClick = jest.fn();
 
-  onDeleteBlogBtnClick = jest.fn();
+  onDeleteBtnClick = jest.fn();
 
   component = render(
     <Blog
       user={user}
       blog={blog}
-      updateBlog={updateBlog}
-      onDeleteBlogBtnClick={onDeleteBlogBtnClick}
+      onLikeBtnClick={onLikeBtnClick}
+      onDeleteBtnClick={onDeleteBtnClick}
     />
   );
 
@@ -61,5 +61,5 @@ test('if the like button is clicked twice, the event handler the component recei
   fireEvent.click(button);
   fireEvent.click(button);
 
-  expect(updateBlog.mock.calls).toHaveLength(2);
+  expect(onLikeBtnClick.mock.calls).toHaveLength(2);
 });

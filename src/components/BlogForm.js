@@ -1,49 +1,19 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-const BlogForm = ({ createBlog }) => {
-	const [title, setTitle] = useState('');
-	const [author, setAuthor] = useState('');
-	const [url, setUrl] = useState('');
-
-	const handleSubmit = (e) => {
-		e.preventDefault();
-		createBlog({ title, author, url });
-		setTitle('');
-		setAuthor('');
-		setUrl('');
-	};
-
+const BlogForm = ({ onSubmit }) => {
 	return (
-		<form id="blogForm" onSubmit={handleSubmit}>
+		<form id="blogForm" onSubmit={onSubmit}>
 			<div>
 				<label htmlFor="title">title</label>
-				<input
-					type="text"
-					value={title}
-					name="title"
-					id="title"
-					onChange={({ target }) => setTitle(target.value)}
-				/>
+				<input type="text" name="title" id="title" />
 			</div>
 			<div>
 				<label htmlFor="author">author</label>
-				<input
-					type="text"
-					value={author}
-					name="author"
-					id="author"
-					onChange={({ target }) => setAuthor(target.value)}
-				/>
+				<input type="text" name="author" id="author" />
 			</div>
 			<div>
 				<label htmlFor="url">url</label>
-				<input
-					type="text"
-					value={url}
-					name="url"
-					id="url"
-					onChange={({ target }) => setUrl(target.value)}
-				/>
+				<input type="text" name="url" id="url" />
 			</div>
 			<button type="submit" data-cy="create-blog-button">
 				create
