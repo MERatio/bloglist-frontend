@@ -35,7 +35,7 @@ const Blog = ({ user, blog, updateBlog, onDeleteBlogBtnClick }) => {
           likes {blog.likes} <button onClick={handleLikeBtnClick}>like</button>
         </div>
         <div>{blog.author}</div>
-        {user.username === blog.user.username && (
+        {(user.id === blog.user.id || user.id === blog.user) && (
           <button
             style={{ backgroundColor: 'DodgerBlue' }}
             onClick={onDeleteBlogBtnClick}
