@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateBlog, deleteBlog } from '../reducers/blogReducer';
+import { updateBlog, deleteBlog } from '../reducers/blogsReducer';
 import Blog from './Blog';
 
 const Blogs = () => {
