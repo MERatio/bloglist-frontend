@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { Routes, Route } from 'react-router-dom';
 import blogService from './services/blogs';
 import { createBlog } from './reducers/blogReducer';
 import { setUser } from './reducers/userReducer';
@@ -10,6 +11,7 @@ import LoginForm from './components/LoginForm';
 import LogoutBtn from './components/LogoutBtn';
 import BlogForm from './components/BlogForm';
 import Blogs from './components/Blogs';
+import Users from './components/Users';
 
 const App = () => {
   const user = useSelector((state) => state.user);
@@ -55,11 +57,31 @@ const App = () => {
           <p>
             {user.name} logged in <LogoutBtn />
           </p>
-          <Togglable buttonLabel={'create new blog'} ref={blogFormRef}>
-            <h2>create new</h2>
-            <BlogForm onSubmit={handleBlogFormSubmit} />
-          </Togglable>
-          <Blogs />
+          <Routes>
+            <Route
+              exact
+              path="/"
+              element={
+                <div>
+                  <Togglable buttonLabel={'create new blog'} ref={blogFormRef}>
+                    <h2>create new</h2>
+                    <BlogForm onSubmit={handleBlogFormSubmit} />
+                  </Togglable>
+                  <Blogs />
+                </div>
+              }
+            />
+            <Route
+              exact
+              path="/users"
+              element={
+                <div>
+                  <h2>Users</h2>
+                  <Users />
+                </div>
+              }
+            />
+          </Routes>
         </>
       )}
     </div>
