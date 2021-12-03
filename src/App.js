@@ -58,7 +58,6 @@ const App = () => {
           </p>
           <Routes>
             <Route
-              exact
               path="/"
               element={
                 <div>
@@ -71,8 +70,7 @@ const App = () => {
               }
             />
             <Route
-              exact
-              path="/users"
+              path="users"
               element={
                 <div>
                   <h2>Users</h2>
