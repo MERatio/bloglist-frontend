@@ -9,7 +9,7 @@ const Blogs = () => {
   const blogs = useSelector((state) =>
     state.blogs.sort((a, b) => b.likes - a.likes)
   );
-  const user = useSelector((state) => state.user);
+  const currentUser = useSelector((state) => state.currentUser);
 
   const handleLikeBtnClick = (blog) => {
     dispatch(
@@ -33,7 +33,7 @@ const Blogs = () => {
       {blogs.map((blog) => (
         <Blog
           key={blog.id}
-          user={user}
+          currentUser={currentUser}
           blog={blog}
           onLikeBtnClick={() => handleLikeBtnClick(blog)}
           onDeleteBtnClick={() => handleDeleteBtnClick(blog)}

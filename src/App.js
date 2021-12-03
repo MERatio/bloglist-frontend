@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Routes, Route } from 'react-router-dom';
 import blogService from './services/blogs';
 import { initBlogs, createBlog } from './reducers/blogsReducer';
-import { setUser } from './reducers/userReducer';
+import { setCurrentUser } from './reducers/currentUserReducer';
 import Notification from './components/Notification';
 import Togglable from './components/Togglable';
 import LoginForm from './components/LoginForm';
@@ -13,7 +13,7 @@ import Blogs from './components/Blogs';
 import Users from './components/Users';
 
 const App = () => {
-  const user = useSelector((state) => state.user);
+  const currentUser = useSelector((state) => state.currentUser);
 
   const dispatch = useDispatch();
 
@@ -30,11 +30,11 @@ const App = () => {
   };
 
   useEffect(() => {
-    const userJSON = window.localStorage.getItem('user');
-    if (userJSON) {
-      const user = JSON.parse(userJSON);
-      dispatch(setUser(user));
-      blogService.setToken(user.token);
+    const currentUserJSON = window.localStorage.getItem('currentUser');
+    if (currentUserJSON) {
+      const currentUser = JSON.parse(currentUserJSON);
+      dispatch(setCurrentUser(currentUser));
+      blogService.setToken(currentUser.token);
     }
   }, []);
 
@@ -45,7 +45,7 @@ const App = () => {
   return (
     <div>
       <Notification />
-      {!user.username ? (
+      {!currentUser.username ? (
         <>
           <h2>log in to application</h2>
           <LoginForm />
@@ -54,7 +54,7 @@ const App = () => {
         <>
           <h2>blogs</h2>
           <p>
-            {user.name} logged in <LogoutBtn />
+            {currentUser.name} logged in <LogoutBtn />
           </p>
           <Routes>
             <Route

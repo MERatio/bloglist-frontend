@@ -3,7 +3,7 @@ import '@testing-library/jest-dom/extend-expect';
 import { render, fireEvent } from '@testing-library/react';
 import Blog from './Blog';
 
-let user;
+let currentUser;
 let blog;
 let onLikeBtnClick;
 let onDeleteBtnClick;
@@ -11,7 +11,7 @@ let component;
 let togglableDiv;
 
 beforeEach(() => {
-  user = {
+  currentUser = {
     username: 'JohnDoe',
     name: 'John Doe',
   };
@@ -21,7 +21,7 @@ beforeEach(() => {
     author: 'testAuthor',
     url: 'http://example.com',
     likes: 1,
-    user: user,
+    user: currentUser,
   };
 
   onLikeBtnClick = jest.fn();
@@ -30,7 +30,7 @@ beforeEach(() => {
 
   component = render(
     <Blog
-      user={user}
+      currentUser={currentUser}
       blog={blog}
       onLikeBtnClick={onLikeBtnClick}
       onDeleteBtnClick={onDeleteBtnClick}

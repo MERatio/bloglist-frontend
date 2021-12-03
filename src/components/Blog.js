@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const Blog = ({ user, blog, onLikeBtnClick, onDeleteBtnClick }) => {
+const Blog = ({ currentUser, blog, onLikeBtnClick, onDeleteBtnClick }) => {
   const [visible, setVisible] = useState(false);
 
   const showWhenVisible = { display: visible ? '' : 'none' };
@@ -29,7 +29,7 @@ const Blog = ({ user, blog, onLikeBtnClick, onDeleteBtnClick }) => {
           likes {blog.likes} <button onClick={onLikeBtnClick}>like</button>
         </div>
         <div>{blog.author}</div>
-        {(user.id === blog.user.id || user.id === blog.user) && (
+        {(currentUser.id === blog.user.id || currentUser.id === blog.user) && (
           <button
             style={{ backgroundColor: 'DodgerBlue' }}
             onClick={onDeleteBtnClick}

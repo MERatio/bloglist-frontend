@@ -4,25 +4,25 @@ import { setNotification } from './notificationReducer';
 
 const reducer = (state = {}, action) => {
 	switch (action.type) {
-		case 'SET_USER':
+		case 'SET_CURRENT_USER':
 			return action.data;
 		default:
 			return state;
 	}
 };
 
-export const setUser = (data) => {
-	return { type: 'SET_USER', data };
+export const setCurrentUser = (data) => {
+	return { type: 'SET_CURRENT_USER', data };
 };
 
 export const login = (credentials) => {
 	return async (dispatch) => {
 		try {
-			const user = await loginService.login(credentials);
-			localStorage.setItem('user', JSON.stringify(user));
-			blogService.setToken(user.token);
-			dispatch(setUser(user));
-			dispatch(setNotification(`Welcome ${user.name}`, 'success', 5));
+			const currentUser = await loginService.login(credentials);
+			localStorage.setItem('currentUser', JSON.stringify(currentUser));
+			blogService.setToken(currentUser.token);
+			dispatch(setCurrentUser(currentUser));
+			dispatch(setNotification(`Welcome ${currentUser.name}`, 'success', 5));
 		} catch (error) {
 			dispatch(setNotification(error.response.data.error, 'error', 5));
 		}
@@ -31,8 +31,8 @@ export const login = (credentials) => {
 
 export const logout = () => {
 	return async (dispatch) => {
-		localStorage.removeItem('user');
-		dispatch(setUser({}));
+		localStorage.removeItem('currentUser');
+		dispatch(setCurrentUser({}));
 		dispatch(setNotification(`Logged out successfully`, 'success', 5));
 	};
 };
