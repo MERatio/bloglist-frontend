@@ -11,6 +11,7 @@ import LogoutBtn from './components/LogoutBtn';
 import BlogForm from './components/BlogForm';
 import Blogs from './components/Blogs';
 import Users from './components/Users';
+import User from './components/User';
 
 const App = () => {
   const currentUser = useSelector((state) => state.currentUser);
@@ -78,6 +79,7 @@ const App = () => {
                 </div>
               }
             />
+            <Route path="users/:userId" element={<User />} />
           </Routes>
         </>
       )}
