@@ -12,7 +12,7 @@ import BlogForm from './components/BlogForm';
 import Blogs from './components/Blogs';
 import BlogView from './components/BlogView';
 import Users from './components/Users';
-import User from './components/User';
+import UserView from './components/UserView';
 
 const App = () => {
   const currentUser = useSelector((state) => state.currentUser);
@@ -81,7 +81,7 @@ const App = () => {
                 </div>
               }
             />
-            <Route path="users/:userId" element={<User />} />
+            <Route path="users/:userId" element={<UserView />} />
           </Routes>
         </>
       )}
