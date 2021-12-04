@@ -1,12 +1,15 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { logout } from '../reducers/currentUserReducer';
 
 const LogoutBtn = () => {
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
 
 	const handleLogoutBtnClick = () => {
 		dispatch(logout());
+		navigate('/');
 	};
 
 	return (

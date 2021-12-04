@@ -1,19 +1,15 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { setUser } from '../reducers/userReducer';
 
 const UserView = () => {
-	const dispatch = useDispatch();
 	const params = useParams();
 
-	const user = useSelector((state) => state.user);
+	const user = useSelector((state) =>
+		state.users.find((user) => user.id === params.userId)
+	);
 
-	useEffect(() => {
-		dispatch(setUser(params.userId));
-	}, []);
-
-	if (!user.id || user.id !== params.userId) {
+	if (!user) {
 		return null;
 	}
 

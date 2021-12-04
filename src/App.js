@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Routes, Route } from 'react-router-dom';
 import blogService from './services/blogs';
 import { initBlogs, createBlog } from './reducers/blogsReducer';
+import { initUsers } from './reducers/usersReducer';
 import { setCurrentUser } from './reducers/currentUserReducer';
 import Notification from './components/Notification';
 import Togglable from './components/Togglable';
@@ -42,6 +43,7 @@ const App = () => {
 
   useEffect(() => {
     dispatch(initBlogs());
+    dispatch(initUsers());
   }, []);
 
   return (
