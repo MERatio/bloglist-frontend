@@ -21,6 +21,11 @@ const create = async (newObject) => {
   return response.data;
 };
 
+const get = async (blogId) => {
+  const response = await axios.get(`${baseUrl}/${blogId}`);
+  return response.data;
+};
+
 const update = async (id, newProps) => {
   const response = await axios.put(`${baseUrl}/${id}`, newProps);
   return response.data;
@@ -34,6 +39,6 @@ const deleteObject = async (id) => {
   return response.data;
 };
 
-const blogService = { setToken, getAll, create, update, deleteObject };
+const blogService = { setToken, getAll, create, get, update, deleteObject };
 
 export default blogService;

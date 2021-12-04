@@ -1,14 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { Link } from 'react-router-dom';
 
-const Blog = ({ currentUser, blog, onLikeBtnClick, onDeleteBtnClick }) => {
-  const [visible, setVisible] = useState(false);
-
-  const showWhenVisible = { display: visible ? '' : 'none' };
-
-  const toggleVisibility = () => {
-    setVisible(!visible);
-  };
-
+const Blog = ({ blog }) => {
   const blogStyle = {
     paddingTop: 10,
     paddingLeft: 2,
@@ -20,23 +13,7 @@ const Blog = ({ currentUser, blog, onLikeBtnClick, onDeleteBtnClick }) => {
   return (
     <div style={blogStyle} data-cy="blog">
       <div>
-        {blog.title}
-        <button onClick={toggleVisibility}>{visible ? 'hide' : 'view'}</button>
-      </div>
-      <div className="togglableContent" style={showWhenVisible}>
-        <div>{blog.url}</div>
-        <div>
-          likes {blog.likes} <button onClick={onLikeBtnClick}>like</button>
-        </div>
-        <div>{blog.author}</div>
-        {(currentUser.id === blog.user.id || currentUser.id === blog.user) && (
-          <button
-            style={{ backgroundColor: 'DodgerBlue' }}
-            onClick={onDeleteBtnClick}
-          >
-            delete
-          </button>
-        )}
+        <Link to={`blogs/${blog.id}`}>{blog.title}</Link>
       </div>
     </div>
   );

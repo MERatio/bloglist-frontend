@@ -10,6 +10,7 @@ import LoginForm from './components/LoginForm';
 import LogoutBtn from './components/LogoutBtn';
 import BlogForm from './components/BlogForm';
 import Blogs from './components/Blogs';
+import BlogView from './components/BlogView';
 import Users from './components/Users';
 import User from './components/User';
 
@@ -70,6 +71,7 @@ const App = () => {
                 </div>
               }
             />
+            <Route path="blogs/:blogId" element={<BlogView />} />
             <Route
               path="users"
               element={
