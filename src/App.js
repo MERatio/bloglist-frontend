@@ -5,10 +5,10 @@ import blogService from './services/blogs';
 import { initBlogs, createBlog } from './reducers/blogsReducer';
 import { initUsers } from './reducers/usersReducer';
 import { setCurrentUser } from './reducers/currentUserReducer';
+import Navbar from './components/Navbar';
 import Notification from './components/Notification';
 import Togglable from './components/Togglable';
 import LoginForm from './components/LoginForm';
-import LogoutBtn from './components/LogoutBtn';
 import BlogForm from './components/BlogForm';
 import Blogs from './components/Blogs';
 import BlogView from './components/BlogView';
@@ -48,6 +48,7 @@ const App = () => {
 
   return (
     <div>
+      {currentUser.username && <Navbar />}
       <Notification />
       {!currentUser.username ? (
         <>
@@ -56,10 +57,7 @@ const App = () => {
         </>
       ) : (
         <>
-          <h2>blogs</h2>
-          <p>
-            {currentUser.name} logged in <LogoutBtn />
-          </p>
+          <h2>blog app</h2>
           <Routes>
             <Route
               path="/"
