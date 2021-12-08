@@ -1,4 +1,5 @@
 import blogService from '../services/blogs';
+import commentService from '../services/comments';
 import { setNotification } from './notificationReducer';
 
 const reducer = (state = [], action) => {
@@ -11,6 +12,12 @@ const reducer = (state = [], action) => {
 			return state.map((el) => (el.id !== action.id ? el : action.data));
 		case 'DELETE_BLOG':
 			return state.filter((el) => el.id !== action.id);
+		case 'NEW_COMMENT':
+			return state.map((el) =>
+				el.id !== action.id
+					? el
+					: { ...el, comments: [...el.comments, action.data] }
+			);
 		default:
 			return state;
 	}
@@ -60,6 +67,20 @@ export const deleteBlog = (blog) => {
 			await blogService.deleteObject(blog.id);
 			dispatch({ type: 'DELETE_BLOG', id: blog.id });
 			dispatch(setNotification(`Blog ${blog.title} deleted`, 'success', 5));
+		} catch (error) {
+			dispatch(setNotification(error.response.data.error, 'error', 5));
+		}
+	};
+};
+
+export const createComment = (id, data) => {
+	return async (dispatch) => {
+		try {
+			const comment = await commentService.create(id, data);
+			dispatch({ type: 'NEW_COMMENT', id, data: comment });
+			dispatch(
+				setNotification(`New comment ${comment.content} added`, 'success', 5)
+			);
 		} catch (error) {
 			dispatch(setNotification(error.response.data.error, 'error', 5));
 		}

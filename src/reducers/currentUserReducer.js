@@ -1,5 +1,6 @@
 import loginService from '../services/login';
 import blogService from '../services/blogs';
+import commentService from '../services/comments';
 import { setNotification } from './notificationReducer';
 
 const reducer = (state = {}, action) => {
@@ -21,6 +22,7 @@ export const login = (credentials) => {
 			const currentUser = await loginService.login(credentials);
 			localStorage.setItem('currentUser', JSON.stringify(currentUser));
 			blogService.setToken(currentUser.token);
+			commentService.setToken(currentUser.token);
 			dispatch(setCurrentUser(currentUser));
 			dispatch(setNotification(`Welcome ${currentUser.name}`, 'success', 5));
 		} catch (error) {

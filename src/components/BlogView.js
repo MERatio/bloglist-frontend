@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { updateBlog } from '../reducers/blogsReducer';
+import { updateBlog, createComment } from '../reducers/blogsReducer';
 
 const BlogView = () => {
   const dispatch = useDispatch();
@@ -23,6 +23,13 @@ const BlogView = () => {
     );
   };
 
+  const handleCommentFormSubmit = async (e) => {
+    e.preventDefault();
+    const content = e.target.content.value;
+    await dispatch(createComment(blog.id, { content }));
+    e.target.reset();
+  };
+
   return (
     <div>
       <h2>{blog.title}</h2>
@@ -34,6 +41,10 @@ const BlogView = () => {
       </div>
       <div>added by {blog.author}</div>
       <h3>comments</h3>
+      <form onSubmit={handleCommentFormSubmit}>
+        <input type="text" name="content" />
+        <button type="submit">add comment</button>
+      </form>
       <ul>
         {blog.comments.map((comment) => (
           <li key={comment.id}>{comment.content}</li>

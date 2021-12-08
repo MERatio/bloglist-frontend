@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Routes, Route } from 'react-router-dom';
 import blogService from './services/blogs';
+import commentService from './services/comments';
 import { initBlogs, createBlog } from './reducers/blogsReducer';
 import { initUsers } from './reducers/usersReducer';
 import { setCurrentUser } from './reducers/currentUserReducer';
@@ -38,6 +39,7 @@ const App = () => {
       const currentUser = JSON.parse(currentUserJSON);
       dispatch(setCurrentUser(currentUser));
       blogService.setToken(currentUser.token);
+      commentService.setToken(currentUser.token);
     }
   }, []);
 
