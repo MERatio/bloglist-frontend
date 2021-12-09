@@ -3,19 +3,23 @@ import React from 'react';
 const BlogForm = ({ onSubmit }) => {
 	return (
 		<form id="blogForm" onSubmit={onSubmit}>
-			<div>
+			<div className="mb-3">
 				<label htmlFor="title">title</label>
-				<input type="text" name="title" id="title" />
+				<input type="text" name="title" className="form-control" id="title" />
 			</div>
-			<div>
+			<div className="mb-3">
 				<label htmlFor="author">author</label>
-				<input type="text" name="author" id="author" />
+				<input type="text" name="author" className="form-control" id="author" />
 			</div>
-			<div>
+			<div className="mb-3">
 				<label htmlFor="url">url</label>
-				<input type="text" name="url" id="url" />
+				<input type="text" name="url" className="form-control" id="url" />
 			</div>
-			<button type="submit" data-cy="create-blog-button">
+			<button
+				type="submit"
+				className="btn btn-primary"
+				data-cy="create-blog-button"
+			>
 				create
 			</button>
 		</form>

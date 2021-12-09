@@ -13,7 +13,7 @@ const Users = () => {
 	}, []);
 
 	return (
-		<table>
+		<table className="table table-striped">
 			<thead>
 				<tr>
 					<th></th>

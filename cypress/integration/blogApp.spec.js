@@ -24,9 +24,7 @@ describe('blog app', function () {
       cy.get('#password').type('password123');
       cy.get('[data-cy=login-button]').click();
 
-      cy.get('.notification.success')
-        .should('contain', `Welcome ${name}`)
-        .and('have.css', 'color', 'rgb(0, 128, 0)');
+      cy.contains(`Welcome ${name}`);
 
       cy.contains('blogs');
       cy.contains(`${user.name} logged in`);
@@ -39,9 +37,7 @@ describe('blog app', function () {
       cy.get('#password').type('wrong password');
       cy.get('[data-cy=login-button]').click();
 
-      cy.get('.notification.error')
-        .should('contain', 'Invalid username or password')
-        .and('have.css', 'color', 'rgb(255, 0, 0)');
+      cy.contains('Invalid username or password');
     });
   });
 
@@ -57,10 +53,7 @@ describe('blog app', function () {
       cy.get('#url').type('testUrl');
       cy.get('[data-cy=create-blog-button]').click();
 
-      cy.get('.notification.success').should(
-        'contain',
-        `New blog testTitle added`
-      );
+      cy.contains(`New blog testTitle added`);
     });
 
     describe('when a blog exists', function () {

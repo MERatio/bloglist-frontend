@@ -49,26 +49,33 @@ const App = () => {
   }, []);
 
   return (
-    <div>
+    <div className="container">
       {currentUser.username && <Navbar />}
       <Notification />
       {!currentUser.username ? (
-        <>
-          <h2>log in to application</h2>
+        <div className="col-lg-8 mx-auto">
+          <h2 className="text-center">log in to application</h2>
           <LoginForm />
-        </>
+        </div>
       ) : (
         <>
-          <h2>blog app</h2>
+          <h2 className="text-center mb-4">blog app</h2>
           <Routes>
             <Route
               path="/"
               element={
                 <div>
-                  <Togglable buttonLabel={'create new blog'} ref={blogFormRef}>
-                    <h2>create new</h2>
-                    <BlogForm onSubmit={handleBlogFormSubmit} />
-                  </Togglable>
+                  <div className="mb-2">
+                    <Togglable
+                      buttonLabel={'create new blog'}
+                      ref={blogFormRef}
+                    >
+                      <div className="col-lg-6">
+                        <h2>create new</h2>
+                        <BlogForm onSubmit={handleBlogFormSubmit} />
+                      </div>
+                    </Togglable>
+                  </div>
                   <Blogs />
                 </div>
               }

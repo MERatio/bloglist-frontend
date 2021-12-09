@@ -4,9 +4,19 @@ import { useSelector } from 'react-redux';
 const Notification = () => {
   const notification = useSelector((state) => state.notification);
 
+  const alerts = {
+    success: 'success',
+    error: 'danger',
+  };
+
   return !notification.message ? null : (
-    <div className={`notification ${notification.notifType}`}>
-      {notification.message}
+    <div className="container">
+      <div
+        className={`alert alert-${alerts[notification.notifType]}`}
+        role="alert"
+      >
+        {notification.message}
+      </div>
     </div>
   );
 };

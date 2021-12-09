@@ -13,15 +13,29 @@ const LoginForm = () => {
 
 	return (
 		<form onSubmit={handleSubmit}>
-			<div>
-				<label htmlFor="username">username</label>
-				<input type="text" name="username" id="username" />
+			<div className="mb-3">
+				<label htmlFor="username" className="form-label">
+					username
+				</label>
+				<input
+					type="text"
+					name="username"
+					className="form-control"
+					id="username"
+				/>
 			</div>
-			<div>
-				<label htmlFor="password">password</label>
-				<input type="password" name="password" id="password" />
+			<div className="mb-3">
+				<label htmlFor="password" className="form-label">
+					password
+				</label>
+				<input
+					type="password"
+					name="password"
+					className="form-control"
+					id="password"
+				/>
 			</div>
-			<button type="submit" data-cy="login-button">
+			<button type="submit" className="btn btn-primary" data-cy="login-button">
 				login
 			</button>
 		</form>

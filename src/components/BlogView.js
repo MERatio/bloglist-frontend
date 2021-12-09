@@ -32,24 +32,35 @@ const BlogView = () => {
 
   return (
     <div>
-      <h2>{blog.title}</h2>
-      <div>
-        <a href={blog.url}>{blog.url}</a>
+      <div className="mb-3">
+        <h2>{blog.title}</h2>
+        <div>
+          <a href={blog.url}>{blog.url}</a>
+        </div>
+        <div>
+          {blog.likes} likes{' '}
+          <button className="btn btn-primary" onClick={handleLikeBtnClick}>
+            like
+          </button>
+        </div>
+        <div>added by {blog.author}</div>
       </div>
-      <div>
-        {blog.likes} likes <button onClick={handleLikeBtnClick}>like</button>
-      </div>
-      <div>added by {blog.author}</div>
       <h3>comments</h3>
-      <form onSubmit={handleCommentFormSubmit}>
-        <input type="text" name="content" />
-        <button type="submit">add comment</button>
+      <form onSubmit={handleCommentFormSubmit} className="d-flex col-lg-6 mb-1">
+        <input type="text" name="content" className="col-lg-5 me-1" />
+        <button type="submit" className="btn btn-primary col-lg-4">
+          add comment
+        </button>
       </form>
-      <ul>
-        {blog.comments.map((comment) => (
-          <li key={comment.id}>{comment.content}</li>
-        ))}
-      </ul>
+      <div>
+        <ul className="list-group">
+          {blog.comments.map((comment) => (
+            <li key={comment.id} className="list-group-item">
+              {comment.content}
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 };
